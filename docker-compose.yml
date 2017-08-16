@@ -1,0 +1,48 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql:5.7
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: redmine
+
+  redmine:
+    image: redmine
+    ports:
+      - 8080:3000
+    environment:
+      REDMINE_DB_MYSQL: db
+      REDMINE_DB_PASSWORD: example
+    volumes:
+      - '/srv/redmine/files:/usr/src/redmine/files'
+      - '/srv/redmine/plugins:/usr/src/redmine/plugins'
+      - '/srv/redmine/home/redmine:/home/redmine'
+
+  gitlab:
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    hostname: 'localhost'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://localhost:9080'
+        # Add any other gitlab.rb configuration here, each on its own line
+        mattermost_external_url 'http://localhost:7080'
+        mattermost['gitlab_enable'] = true
+        mattermost['gitlab_id'] = "cbe194e2020fa1bf67f8a119f127c7062fe058a1278e9b39e9517f701ff3eaae"
+        mattermost['gitlab_secret'] = "4e6fe468f75c5085694e7c277f8424e5cf21b3be656d1e75afd37e9eec395428"
+        mattermost['gitlab_scope'] = ""
+        mattermost['gitlab_auth_endpoint'] = "http://localhost:9080/oauth/authorize"
+        mattermost['gitlab_token_endpoint'] = "http://localhost:9080/oauth/token"
+        mattermost['gitlab_user_api_endpoint'] = "http://localhost:9080/api/v4/user"
+        mattermost['service_enable_incoming_webhooks'] = true
+    ports:
+      - '9080:9080'
+      - '7080:7080'
+      - '8065:8065'
+    volumes:
+      - '/srv/gitlab/config:/etc/gitlab'
+      - '/srv/gitlab/logs:/var/log/gitlab'
+      - '/srv/gitlab/data:/var/opt/gitlab'
