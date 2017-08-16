@@ -78,8 +78,5 @@ Vagrant.configure("2") do |config|
   # SHELL
   config.vm.provision :docker
   config.vm.provision :docker_compose, yml:"/vagrant/docker-compose.yml", run: "always"
-  #config.vm.provision "docker" do |d|
-  #  d.build_image "/vagrant", args: "-t yoshimura/my-bash"
-  #  d.run "yoshimura/my-bash", args: "-d -t -v /vagrant:/tmp/shared"
-  #end
+  
 end
