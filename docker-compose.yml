@@ -21,6 +21,16 @@ services:
       - '/srv/redmine/plugins:/usr/src/redmine/plugins'
       - '/srv/redmine/home/redmine:/home/redmine'
 
+  jenkins:
+    image: jenkins/jenkins:lts
+    environment:
+      JAVA_OPTS: "-Djava.awt.headless=true"
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - '/var/jenkins_home'
+
   gitlab:
     image: 'gitlab/gitlab-ce:latest'
     restart: always
