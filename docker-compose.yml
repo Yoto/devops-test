@@ -50,7 +50,7 @@ services:
         mattermost['service_enable_incoming_webhooks'] = true
     ports:
       - '9080:9080'
-      - '10080:7080'
+      - '10080:10080'
       # - '8065:8065'
     volumes:
       - '/srv/gitlab/config:/etc/gitlab'
