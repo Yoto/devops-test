@@ -12,7 +12,7 @@ services:
   redmine:
     image: redmine
     ports:
-      - 8080:3000
+      - 7080:3000
     environment:
       REDMINE_DB_MYSQL: db
       REDMINE_DB_PASSWORD: example
@@ -29,7 +29,7 @@ services:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'http://localhost:9080'
         # Add any other gitlab.rb configuration here, each on its own line
-        mattermost_external_url 'http://localhost:7080'
+        mattermost_external_url 'http://localhost:10080'
         mattermost['gitlab_enable'] = true
         mattermost['gitlab_id'] = "cbe194e2020fa1bf67f8a119f127c7062fe058a1278e9b39e9517f701ff3eaae"
         mattermost['gitlab_secret'] = "4e6fe468f75c5085694e7c277f8424e5cf21b3be656d1e75afd37e9eec395428"
@@ -40,8 +40,8 @@ services:
         mattermost['service_enable_incoming_webhooks'] = true
     ports:
       - '9080:9080'
-      - '7080:7080'
-      - '8065:8065'
+      - '10080:7080'
+      # - '8065:8065'
     volumes:
       - '/srv/gitlab/config:/etc/gitlab'
       - '/srv/gitlab/logs:/var/log/gitlab'

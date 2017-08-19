@@ -24,10 +24,10 @@ Vagrant.configure("2") do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
   # config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
-  config.vm.network "forwarded_port", guest: 9080, host: 9080
   config.vm.network "forwarded_port", guest: 7080, host: 7080
-  config.vm.network "forwarded_port", guest: 8065, host: 8065
+  config.vm.network "forwarded_port", guest: 9080, host: 9080
+  config.vm.network "forwarded_port", guest: 10080, host: 10080
+  # config.vm.network "forwarded_port", guest: 8065, host: 8065
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
@@ -62,7 +62,7 @@ Vagrant.configure("2") do |config|
   # end
   config.vm.provider "virtualbox" do |vb|
   # Customize the amount of memory on the VM:
-     vb.memory = "8192"
+     vb.memory = "4096"
      vb.cpus = 4
   end
   
