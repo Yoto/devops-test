@@ -2,25 +2,6 @@ version: '3.1'
 
 services:
 
-  db:
-    image: mysql:5.7
-    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: redmine
-
-  redmine:
-    image: redmine
-    ports:
-      - 7080:3000
-    environment:
-      REDMINE_DB_MYSQL: db
-      REDMINE_DB_PASSWORD: example
-    volumes:
-      - '/srv/redmine/files:/usr/src/redmine/files'
-      - '/srv/redmine/plugins:/usr/src/redmine/plugins'
-      - '/srv/redmine/home/redmine:/home/redmine'
-
   jenkins:
     image: jenkins/jenkins:lts
     environment:
@@ -39,7 +20,7 @@ services:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'http://localhost:9080'
         # Add any other gitlab.rb configuration here, each on its own line
-        mattermost_external_url 'http://localhost:10080'
+        #mattermost_external_url 'http://localhost:10080'
         #mattermost['gitlab_enable'] = true
         #mattermost['gitlab_id'] = "2d3b33adcc2cbfa8eca081fad5d1258fa527ea09c2e114ab3f08880f5171ef2c"
         #mattermost['gitlab_secret'] = "7c1cc7903293a5539c964c0861238fd98765b94e7203fcf84bc38e586fe77d5f"
