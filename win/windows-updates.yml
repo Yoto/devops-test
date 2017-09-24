@@ -1,0 +1,27 @@
+---
+# windows-updates.yml
+
+- hosts: windows_servers
+  # serial: 1
+  # remote_user: user@DOMAIN.COM
+
+  tasks:
+
+    # Check of there are missing updates
+      - block:
+          - name: Perform windows update
+            win_updates:
+              # state: searched
+              # category_names: SecurityUpdates
+            register: update_result
+          - name: List missing updates
+            debug: 
+              var: update_result
+          - name: Reboot when requierd
+            win_reboot:
+            when: update_result.reboot_required == True
+            register: reboot_result
+          - name: Display reboot result
+            debug:
+              var: reboot_result
+              
