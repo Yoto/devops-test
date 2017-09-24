@@ -1,39 +1,9 @@
-version: '3.1'
-
-services:
-
-  jenkins:
-    image: jenkins/jenkins:lts
-    environment:
-      JAVA_OPTS: "-Djava.awt.headless=true"
-    ports:
-      - 8080:8080
-      - 50000:50000
-    volumes:
-      - '/var/jenkins_home'
-
-  gitlab:
-    image: 'gitlab/gitlab-ce:latest'
-    restart: always
-    hostname: 'localhost'
-    environment:
-      GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://localhost:9080'
-        # Add any other gitlab.rb configuration here, each on its own line
-        #mattermost_external_url 'http://localhost:10080'
-        #mattermost['gitlab_enable'] = true
-        #mattermost['gitlab_id'] = "2d3b33adcc2cbfa8eca081fad5d1258fa527ea09c2e114ab3f08880f5171ef2c"
-        #mattermost['gitlab_secret'] = "7c1cc7903293a5539c964c0861238fd98765b94e7203fcf84bc38e586fe77d5f"
-        #mattermost['gitlab_scope'] = ""
-        #mattermost['gitlab_auth_endpoint'] = "http://localhost:9080/oauth/authorize"
-        #mattermost['gitlab_token_endpoint'] = "http://localhost:9080/oauth/token"
-        #mattermost['gitlab_user_api_endpoint'] = "http://localhost:9080/api/v4/user"
-        #mattermost['service_enable_incoming_webhooks'] = true
-    ports:
-      - '9080:9080'
-      - '10080:10080'
-      # - '8065:8065'
-    volumes:
-      - '/srv/gitlab/config:/etc/gitlab'
-      - '/srv/gitlab/logs:/var/log/gitlab'
-      - '/srv/gitlab/data:/var/opt/gitlab'
+master:
+  build: .
+  environment:
+    JAVA_OPTS: "-Djava.awt.headless=true"
+  ports:
+    - "50000:50000"
+    - "8080:8080"
+  volumes:
+    - /var/jenkins_home
